@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
-    Map<Long, Faculty> facultyList = new HashMap<>();
-    Long idCounter = 1L;
+    private final Map<Long, Faculty> facultyList = new HashMap<>();
+    private long idCounter = 1L;
 
     public Faculty createFaculty(Faculty faculty) {
-        facultyList.put(idCounter,faculty);
-        idCounter++;
+        facultyList.put(faculty.getId(),faculty);
+        faculty.setId(idCounter++);
         return faculty;
     }
 

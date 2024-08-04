@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
-    Map<Long, Student> studentList = new HashMap<>();
-    long idCounter = 0L;
+    private final Map<Long, Student> studentList = new HashMap<>();
+    private long idCounter = 1L;
 
     public Student createStudent(Student student) {
-        studentList.put(idCounter, student);
-        idCounter++;
+        studentList.put(student.getId(), student);
+        student.setId(idCounter++);
         return student;
     }
 
