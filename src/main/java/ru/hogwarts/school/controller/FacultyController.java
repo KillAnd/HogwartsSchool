@@ -41,8 +41,8 @@ public class FacultyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Faculty> updateFaculty(@PathVariable long id, @RequestBody Faculty faculty) {
-        Faculty update = facultyService.updateFaculty(id, faculty);
+    public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
+        Faculty update = facultyService.updateFaculty(faculty);
         if (update == null) {
             return ResponseEntity.notFound().build();
         }
@@ -50,8 +50,8 @@ public class FacultyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Faculty> deleteFaculty(@PathVariable long id) {
-        Faculty deleted = facultyService.deleteFaculty(id);
+    public ResponseEntity<Long> deleteFaculty(@PathVariable long id) {
+        Long deleted = facultyService.deleteFaculty(id);
         if (deleted == null) {
             ResponseEntity.notFound().build();
         }
@@ -64,7 +64,7 @@ public class FacultyController {
     }
 
     @GetMapping("/all")
-    public Map<Long,Faculty> allFaculty() {
+    public List<Faculty> allFaculty() {
         return facultyService.allListFaculty();
     }
 }

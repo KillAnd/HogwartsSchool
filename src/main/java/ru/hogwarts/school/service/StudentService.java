@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,36 +13,38 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
-    private final Map<Long, Student> studentList = new HashMap<>();
-    private long idCounter = 1L;
+    private final StudentRepository studentRepository;
+
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
 
     public Student createStudent(Student student) {
-        student.setId(idCounter++);
-        studentList.put(student.getId(), student);
-        return student;
+        return studentRepository.save(student);
     }
 
     public Student getStudent(long id) {
-        return studentList.get(id);
+        return studentRepository.getReferenceById(id);
     }
 
-    public Student updateStudent(long id, Student student) {
-        studentList.put(id, student);
-        return student;
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student);
     }
-    public Student deleteStudent(long id) {
-        return studentList.remove(id);
+    public Long deleteStudent(long id) {
+        studentRepository.deleteById(id);
+        return id;
     }
 
     public List<Student> filterByAge(int age) {
-        return studentList.values()
+        return studentRepository.findAll()
                 .stream().
                 filter(fil -> fil.getAge() == age).
                 collect(Collectors.toList());
     }
 
-    public Map<Long, Student> allStudent() {
-        return studentList;
+    public List<Student> allStudent() {
+        return studentRepository.findAll();
     }
 
 }
