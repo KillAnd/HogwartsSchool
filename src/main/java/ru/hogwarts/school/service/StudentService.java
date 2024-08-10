@@ -16,8 +16,8 @@ public class StudentService {
     private long idCounter = 1L;
 
     public Student createStudent(Student student) {
-        studentList.put(student.getId(), student);
         student.setId(idCounter++);
+        studentList.put(student.getId(), student);
         return student;
     }
 
