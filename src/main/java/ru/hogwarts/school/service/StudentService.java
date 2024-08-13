@@ -40,7 +40,7 @@ public class StudentService {
     }
 
     public List<Student> filterByAge(int age) {
-        return studentRepository.filterByAge(age);
+        return studentRepository.findAllByAge(age);
     }
 
     public List<Student> allStudent() {

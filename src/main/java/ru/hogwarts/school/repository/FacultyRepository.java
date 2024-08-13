@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FacultyRepository extends JpaRepository<Faculty, Long> {
 
-    List<Faculty> filterByColor(String color);
+    List<Faculty> findAllByColor(String color);
 
 }
