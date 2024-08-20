@@ -1,9 +1,9 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/faculty")
 public class FacultyController {
-    @Autowired
+
     FacultyService facultyService;
 
     public FacultyController(FacultyService facultyService) {
@@ -54,9 +54,18 @@ public class FacultyController {
     public List<Faculty> filterFaculties(@RequestParam String color) {
         return facultyService.filterByColor(color);
     }
+    @GetMapping("/nameOrColor")
+    public List<Faculty> findByNameOrColor(String name, String color) {
+        return facultyService.findByColorOrName(name ,color);
+    }
 
     @GetMapping("/all")
     public List<Faculty> allFaculty() {
         return facultyService.allListFaculty();
+    }
+
+    @GetMapping("/{id}/studentsByFaculty")
+    public List<Student> getStudentsByFaculty(@PathVariable long id) {
+        return facultyService.findStudentByFaculty(id);
     }
 }
