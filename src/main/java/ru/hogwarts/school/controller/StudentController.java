@@ -11,8 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
-    @Autowired
-    StudentService studentService;
+    private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
