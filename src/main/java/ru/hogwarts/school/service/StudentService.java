@@ -57,4 +57,16 @@ public class StudentService {
                 .orElse(null);
     }
 
+    public Long findAllStudent() {
+        return studentRepository.findAllStudent();
+    }
+
+    public Long averageAgeStudents() {
+        return studentRepository.findAVGAgeStudents();
+    }
+
+    public List<Student> getLastStudents() {
+        return studentRepository.getFiveLastStudents();
+    }
+
 }
