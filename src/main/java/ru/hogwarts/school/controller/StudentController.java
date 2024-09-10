@@ -84,4 +84,14 @@ public class StudentController {
     public List<Student> findFiveLastStudents() {
         return studentService.getLastStudents();
     }
+
+    @GetMapping("/sortedToName")
+    public List<String> sortedToName() {
+        return studentService.sortedToNameStudent();
+    }
+
+    @GetMapping("/sortedToAge")
+    public Double sortedToAge() {
+        return studentService.sortedToAgeStudent();
+    }
 }

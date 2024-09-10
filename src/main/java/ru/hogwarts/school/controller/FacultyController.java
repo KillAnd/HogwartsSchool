@@ -68,4 +68,14 @@ public class FacultyController {
     public List<Student> getStudentsByFaculty(@PathVariable long id) {
         return facultyService.findStudentByFaculty(id);
     }
+
+    @GetMapping("/LongLongNameFaculty")
+    public String longLongName() {
+        return facultyService.longLongNameFaculty();
+    }
+
+    @GetMapping("/intSum")
+    public Integer intSum() {
+        return facultyService.sumInt();
+    }
 }

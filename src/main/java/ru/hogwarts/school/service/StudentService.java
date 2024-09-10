@@ -8,6 +8,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -84,4 +85,22 @@ public class StudentService {
         return studentRepository.getFiveLastStudents();
     }
 
+    public List<String> sortedToNameStudent() {
+        logger.info("Запущен метод по сортировке студентов по имени(буква А)");
+        return studentRepository.findAll()
+                .stream()
+                .map(Student::getName)
+                .filter(name -> name.toUpperCase().startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public Double sortedToAgeStudent() {
+        logger.info("Запущен метод по сортировке студентов по возрасту(среднее значение)");
+        return studentRepository.findAll()
+                .stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0.0);
+    }
 }
