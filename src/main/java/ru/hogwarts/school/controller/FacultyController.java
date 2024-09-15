@@ -75,7 +75,7 @@ public class FacultyController {
     }
 
     @GetMapping("/intSum")
-    public Integer intSum() {
+    public String intSum() {
         return facultyService.sumInt();
     }
 }

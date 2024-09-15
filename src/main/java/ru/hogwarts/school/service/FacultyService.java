@@ -7,6 +7,8 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -85,10 +87,34 @@ public class FacultyService {
                 .orElse(null);
     }
 
-    public Integer sumInt() {
-        return Stream.iterate(1, a -> a +1)
-                .limit(1_000_000)
-                .reduce(0, (a, b) -> a + b);
+    public String sumInt() {
+        Instant startTime1 = Instant.now();
+        Long sum1 = Stream.iterate(1L, a -> a + 1)
+                .limit(1_000_000L)
+                .reduce(0L, (a, b) -> a + b);
+        Instant endTime1 = Instant.now();
+
+        Instant startTime2 = Instant.now();
+        Long sum2 = Stream.iterate(1L, a -> a + 1)
+                .parallel()
+                .limit(1_000_000L)
+                .reduce(0L, (a, b) -> a + b);
+        Instant endTime2 = Instant.now();
+
+        Duration duration1 = Duration.between(startTime1, endTime1);
+        Duration duration2 = Duration.between(startTime2, endTime2);
+        
+        String answer;
+
+        if (duration1.toMillis() > duration2.toMillis()) {
+            answer = "второй метод быстрее";
+        } else {
+            answer = "первый метод быстрее";
+        }
+        System.out.println(duration1);
+        System.out.println(duration2);
+
+        return answer;
     }
 
 }
