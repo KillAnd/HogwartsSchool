@@ -8,6 +8,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,5 +103,31 @@ public class StudentService {
                 .mapToInt(Student::getAge)
                 .average()
                 .orElse(0.0);
+    }
+
+    public void parallelOutputNameStudent() {
+        System.out.println(getStudent(1).getName());
+        System.out.println(getStudent(2).getName());
+        new Thread(() -> {
+            System.out.println(getStudent(3).getName());
+            System.out.println(getStudent(4).getName());
+        }).start();
+        new Thread(() -> {
+            System.out.println(getStudent(5).getName());
+            System.out.println(getStudent(6).getName());
+        }).start();
+    }
+
+    public synchronized void synchronizedParallelOutputNameStudent() {
+        System.out.println(getStudent(1).getName());
+        System.out.println(getStudent(2).getName());
+        new Thread(() -> {
+            System.out.println(getStudent(3).getName());
+            System.out.println(getStudent(4).getName());
+        }).start();
+        new Thread(() -> {
+            System.out.println(getStudent(5).getName());
+            System.out.println(getStudent(6).getName());
+        }).start();
     }
 }

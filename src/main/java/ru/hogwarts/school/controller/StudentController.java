@@ -94,4 +94,14 @@ public class StudentController {
     public Double sortedToAge() {
         return studentService.sortedToAgeStudent();
     }
+
+    @GetMapping("/print-parallel")
+    public void getParallelOutputNameStudent() {
+        studentService.parallelOutputNameStudent();
+    }
+
+    @GetMapping("/print-synchronized")
+    public void getSynchronizedParallelOutputNameStudent() {
+        studentService.synchronizedParallelOutputNameStudent();
+    }
 }
