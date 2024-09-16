@@ -118,16 +118,25 @@ public class StudentService {
         }).start();
     }
 
-    public synchronized void synchronizedParallelOutputNameStudent() {
-        System.out.println(getStudent(1).getName());
-        System.out.println(getStudent(2).getName());
-        new Thread(() -> {
-            System.out.println(getStudent(3).getName());
-            System.out.println(getStudent(4).getName());
-        }).start();
-        new Thread(() -> {
-            System.out.println(getStudent(5).getName());
-            System.out.println(getStudent(6).getName());
-        }).start();
+    public void synchronizedParallelOutputNameStudent() {
+        Object flag = new Object();
+        printStudentName(getStudent(1));
+        printStudentName(getStudent(2));
+            new Thread(() -> {
+                synchronized (flag) {
+                    printStudentName(getStudent(3));
+                    printStudentName(getStudent(4));
+                }
+            }).start();
+            new Thread(() -> {
+                synchronized (flag) {
+                    printStudentName(getStudent(5));
+                    printStudentName(getStudent(6));
+                }
+            }).start();
+    }
+
+    public synchronized void printStudentName(Student student) {
+        System.out.println(student.getName());
     }
 }
